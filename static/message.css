@@ -1,0 +1,40 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to bottom, #141E30, #243B55);
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    color: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    font-size: 2rem;
+    color: #FFD700;
+}
+
+.header p {
+    font-size: 1rem;
+}
+
+ul div {
+    text-align: left;
+    color: white;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    padding: 20px;
+    background: linear-gradient(to bottom, #141E30, #243B55);
+    border-radius: 10px;
+}

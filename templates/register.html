@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - WhisperZone</title>
+    <link rel="stylesheet" href="{% static 'other.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Logo/Brand Section -->
+        <div class="logo">
+            <h1>WhisperZone</h1>
+        </div>
+
+        <!-- Welcome Text -->
+        <div class="welcome-text">
+            <h2>Create Your Account</h2>
+            <p>Join WhisperZone to send and receive anonymous messages.</p>
+        </div>
+
+        <!-- Registration Form -->
+        <form action="" method="POST" class="form-container">
+            {% csrf_token %}
+            {% csrf_token %}
+            <!-- Username Field -->
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required>
+            </div>
+
+            <!-- Email Field -->
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+
+            <!-- Password Field -->
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Create a password" required>
+            </div>
+
+            <!-- Confirm Password Field -->
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" name="password2"
+                    placeholder="Re-enter your password" required>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn-primary">Register</button>
+        </form>
+
+        <!-- Already Have an Account? -->
+        <div class="alt-option">
+            <p>Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+        </div>
+    </div>
+</body>
+
+</html>

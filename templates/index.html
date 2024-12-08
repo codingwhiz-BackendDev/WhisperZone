@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhisperZone</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+
+<body>
+    <!--Check if user is authenticated-->
+    {% if user.is_authenticated %}
+    <div class="hero">
+        <div class="navbar">
+            <div class="logo">WhisperZone</div>
+
+            <div class="auth-buttons">
+                <a href="logout" class="login-btn">Log Out</a>
+            </div>
+        </div>
+
+        <div class="hero-content">
+            <h1><span>WhisperZone</span></h1>
+            <p>Your place for anonymous and honest conversations.</p>
+
+            <!--Form to generate Link for Secrete message-->
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="cta-buttons">
+                    <input type="hidden" name="OwnerUsername" value="{{user.username}}">
+                    <button type="submit" class="start-btn">Generate/View secret link</button>
+                    <a href="/view_messages" class="start-btn">View Anonymous Messages</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!--Display welcome and log in page if user is not authenticated-->
+    {% else %}
+    <div class="hero">
+        <div class="navbar">
+            <div class="logo">WhisperZone</div>
+
+            <div class="auth-buttons">
+                <a href="login" class="login-btn">Log In</a>
+            </div>
+        </div>
+
+        <div class="hero-content">
+            <h1>Welcome to <span>WhisperZone</span></h1>
+            <p>Your place for anonymous and honest conversations.</p>
+            <marquee behavior="" direction="ltr">
+                <p style="color:#FFD700;">Let your friends send you a secret message, who knows you might discover a
+                    secret crush</p>
+            </marquee>
+            <div class="cta-buttons">
+                <a href="register" class="start-btn">Get Started</a>
+                <a href="" class="learn-more-btn">Learn More</a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</body>
+
+</html>

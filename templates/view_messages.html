@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anonymous Messages - WhisperZone</title>
+    <link rel="stylesheet" href="{% static 'message.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Page Header -->
+        <header class="header">
+            <h1>Anonymous Messages</h1>
+        </header>
+
+        <!-- Messages Section -->
+        <section class="">
+            {% if messages %}
+            <ul class="">
+                {% for message in messages %}
+                <div class="messages">
+                    {{message.message}}
+                </div>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <div class="no-messages">
+                <p>No messages yet. Share your link to start receiving anonymous messages!</p>
+            </div>
+            {% endif %}
+        </section>
+    </div>
+</body>
+
+</html>

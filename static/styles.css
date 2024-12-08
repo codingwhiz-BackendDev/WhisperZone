@@ -1,0 +1,120 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background: linear-gradient(to bottom, #141E30, #243B55);
+    color: #ffffff;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+ 
+
+.hero {
+    text-align: center;
+    padding: 20px;
+    width: 100%;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 1px 1px 2px #000000;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+
+.login-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    width: max-content;
+    transition: all 0.3s ease-in-out;
+    text-decoration: none;
+    background: #FFD700;
+    color: #141E30;
+}
+
+
+.login-btn:hover {
+    background: #FFC107;
+    color: #141E30;
+}
+
+.hero-content {
+    margin-top: 100px;
+}
+
+.hero-content h1 {
+    font-size: 2.8rem;
+    margin-bottom: 20px;
+}
+
+.hero-content h1 span {
+    color: #FFD700;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    color: #dcdcdc;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.start-btn,
+.learn-more-btn {
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.start-btn {
+    background: #FFD700;
+    color: #141E30;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.start-btn:hover {
+    background: #FFC107;
+    text-decoration: none;
+}
+
+.learn-more-btn {
+    background: transparent;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    text-decoration: none;
+}
+
+.learn-more-btn:hover {
+    background: #ffffff;
+    color: #141E30;
+    text-decoration: none;
+}
