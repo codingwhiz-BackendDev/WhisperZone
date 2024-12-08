@@ -4,6 +4,8 @@ from django.contrib import messages
 from .models import AnonymousMessage,Users
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from django.core.mail import send_mail
+from django.conf import settings
 
 # Create your views here.
 
@@ -43,6 +45,22 @@ def register(request):
             else:
                 user = User.objects.create_user(username=username, email=email, password=password)
                 user.save()
+                send_mail(
+                    """Welcome to WhisperZone!,
+                    Hi there! 
+
+                    WhisperZone allows you to send and receive anonymous messages using your unique link.
+                    Welcome to WhisperZone! We're thrilled to have you here. 
+
+                    Get started by sharing your link with your friends: 
+                    
+                    Happy messaging,
+                    The WhisperZone Team
+                    """,
+                    settings.EMAIL_HOST_USER,    # Sender's email address
+                    [email],                     # Recipient's email address in a list
+                    fail_silently=False
+                )
                 return redirect('login')
         else:
             messages.info(request, 'Passwords does not match')
@@ -60,6 +78,9 @@ def login(request):
         if user is not None:
             auth.login(request, user)
             return redirect('index')
+        else:
+            messages.info(request, 'Credentials are Invalid')
+            return redirect('login')
     return render(request, 'login.html')
 
 def logout(request):

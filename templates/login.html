@@ -11,6 +11,11 @@
 
 <body>
     <div class="container">
+        {% for message in messages %}
+        <div class="alert warning">
+            <p>{{message}}</p>
+        </div>
+        {% endfor %}
         <!-- Logo/Brand Section -->
         <div class="logo">
             <h1>WhisperZone</h1>
@@ -18,7 +23,7 @@
 
         <!-- Welcome Text -->
         <div class="welcome-text">
-            <h2>Log In</h2> 
+            <h2>Log In</h2>
         </div>
 
         <!-- Registration Form -->

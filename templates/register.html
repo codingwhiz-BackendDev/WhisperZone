@@ -11,6 +11,11 @@
 
 <body>
     <div class="container">
+        {% for message in messages %}
+        <div class="alert warning">
+            <p>{{message}}</p>
+        </div>
+        {% endfor %}
         <!-- Logo/Brand Section -->
         <div class="logo">
             <h1>WhisperZone</h1>
@@ -47,8 +52,8 @@
             <!-- Confirm Password Field -->
             <div class="form-group">
                 <label for="confirm-password">Confirm Password</label>
-                <input type="password" id="confirm-password" name="password2"
-                    placeholder="Re-enter your password" required>
+                <input type="password" id="confirm-password" name="password2" placeholder="Re-enter your password"
+                    required>
             </div>
 
             <!-- Submit Button -->
