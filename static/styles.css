@@ -13,7 +13,7 @@ body {
     justify-content: center;
     align-items: center;
 }
- 
+
 
 .hero {
     text-align: center;
@@ -117,4 +117,43 @@ body {
     background: #ffffff;
     color: #141E30;
     text-decoration: none;
+}
+
+.footer {
+    margin-top: 30px;
+    padding: 20px 0;
+    text-align: center;
+    border-top: 1px solid #ddd;
+}
+
+.footer p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.footer strong {
+    color: #4a90e2;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.social-links a {
+    text-decoration: none;
+    display: inline-block;
+}
+
+.social-links .icon {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.social-links .icon:hover {
+    transform: scale(1.1);
+    opacity: 0.8;
 }
