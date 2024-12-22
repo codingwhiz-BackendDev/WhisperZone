@@ -99,8 +99,7 @@ def send_message(request, pk):
             OwnerUsername = pk
 
             AnonymousMessage.objects.create(OwnerUsername=OwnerUsername, message=message)
-
-            print('Message saved successfully!')
+            messages.info(request,'Message sent successfully!')
             return redirect('/send_message/' + pk)
         else:
             return render(request, 'send_message.html')

@@ -7,10 +7,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Send Message - WhisperZone</title>
     <link rel="stylesheet" href="{% static 'other.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
 
 <body>
     <div class="container">
+        {% for message in messages %}
+        <div class="alert warning">
+            <p>{{message}}</p>
+        </div>
+        {% endfor %}
         <!-- Logo/Brand Section -->
         <div class="logo">
             <h1>WhisperZone</h1>
@@ -26,15 +33,33 @@
             {% csrf_token %}
 
             <!-- Textarea Field -->
-            <div class="form-group">
+            <div class="form-group" style="display: flex;">
 
                 <textarea id="message" name="message" placeholder="Enter your message" required></textarea>
+                <button type="button" id="toggle"><i class="fas fa-dice"></i></button>
             </div>
 
             <!-- Submit Button -->
             <button type="submit" class="btn-primary">Send Message</button>
         </form>
     </div>
+
+    <script>
+        let message = document.getElementById('message');
+        toggle = document.getElementById('toggle')
+
+        suggestions = ['How old are you', 'who is your crush',
+            'what\'s your favourite bible verse', 'You\'re so cool', 'Send funds abeg']
+
+        toggle.addEventListener('click', () => {
+
+            random_suggestion = Math.floor(Math.random() * suggestions.length)
+
+            message.value = suggestions[random_suggestion];
+            console.log(message.value)
+        })
+
+    </script>
 </body>
 
 </html>
