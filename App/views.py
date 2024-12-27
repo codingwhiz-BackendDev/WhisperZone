@@ -48,14 +48,14 @@ def register(request):
                 profile = Profile.objects.create(profile_user=user)
                 profile.save()
                 # Create secret link
-                
+
                 complete_url = f"{request.scheme}://{request.get_host()}/send_message/"+str(user)
-    
+
                 user_profile = Profile.objects.get(profile_user=user)
-                user_link = user_profile.user_link 
-    
+                user_link = user_profile.user_link
+
                 user_profile.user_link = complete_url
-                user_profile.save()  
+                user_profile.save()
                 send_mail(
 <<<<<<< HEAD
                     subject="Welcome to WhisperZone!",  # Add the subject
@@ -63,7 +63,7 @@ def register(request):
 =======
                     'Welcome Greetings',
                     """Welcome to WhisperZone!,
-                    Hi there! 
+                    Hi there!
 >>>>>>> 740c143f9656bf7d61b324e82a651359887e17ad
 
                     WhisperZone allows you to send and receive anonymous messages using your unique link.
@@ -106,7 +106,7 @@ def logout(request):
     return redirect('login')
 
 @login_required(login_url='login')
-def view_messages(request): 
+def view_messages(request):
     anonymousMessages = AnonymousMessage.objects.filter(OwnerUsername=request.user)
     return render(request, 'view_messages.html', {'anonymousMessages':anonymousMessages})
 
@@ -134,28 +134,28 @@ def send_message(request, pk):
 def view_secret_link(request,pk):
     user = User.objects.get(username=pk)
     user_profile = Profile.objects.get(profile_user=user)
- 
+
     return render(request, 'view_secret_link.html', {'user_profile':user_profile})
 
 @login_required(login_url='login')
 def delete(request,pk):
     message = AnonymousMessage.objects.get(id=pk)
-    message.delete() 
-    messages.info(request,'Message sent successfully!') 
-    
+    message.delete()
+    messages.info(request,'Message sent successfully!')
+
     return redirect('/view_messages')
- 
- 
-def profile(request,pk): 
+
+
+def profile(request,pk):
     user = User.objects.get(username=pk)
     user_profile = Profile.objects.get(profile_user=user)
     anonymous_messages = AnonymousMessage.objects.filter(OwnerUsername=pk)[0:10]
-    anonymous_messages_length = len(anonymous_messages) 
-    if request.method == 'POST': 
+    anonymous_messages_length = len(anonymous_messages)
+    if request.method == 'POST':
         if request.FILES.get('profile_pic') == None:
             bio = request.POST['bio']
             profile_pic = user_profile.profile_pic
-            
+
             user_profile.bio = bio
             user_profile.profile_pic = profile_pic
             user_profile.save()
@@ -163,16 +163,16 @@ def profile(request,pk):
         else:
             bio = request.POST['bio']
             profile_pic = request.FILES.get('profile_pic')
-            
+
             user_profile.bio = bio
             user_profile.profile_pic = profile_pic
-            
+
             user_profile.save()
             return redirect('/profile/'+pk)
-            
-        
-            
-            
+
+
+
+
     return render(request, 'profile.html', {'user_profile':user_profile, 'user':user, 'anonymous_messages_length':anonymous_messages_length,'anonymous_messages':anonymous_messages})
 
 @login_required(login_url='login')
@@ -183,10 +183,10 @@ def social_media(request,pk):
         facebook = request.POST['facebook']
         instagram = request.POST['instagram']
         twitter = request.POST['twitter']
-        
+
         user_profile.facebook_link = facebook
         user_profile.instagram_link = instagram
         user_profile.twitter_link = twitter
-        
+
         user_profile.save()
         return redirect('/profile/'+pk)

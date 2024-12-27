@@ -25,11 +25,11 @@ SECRET_KEY = 'django-insecure-42cpolio=+_mt=hsei*maieil@=--%#jmnjkikfap*v_0kxi4p
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-<<<<<<< HEAD
+
 ALLOWED_HOSTS = ['whisperzone.pythonanywhere.com']
-=======
+
 ALLOWED_HOSTS = []
->>>>>>> 740c143f9656bf7d61b324e82a651359887e17ad
+
 
 
 # Application definition
