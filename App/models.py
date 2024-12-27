@@ -22,7 +22,7 @@ class AnonymousMessage(models.Model):
     
 class  Profile(models.Model):
     profile_user = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
-    profile_pic = models.FileField(upload_to='ProfileImage', max_length=100,null=True)
+    profile_pic = models.FileField(upload_to='ProfileImage', max_length=100,null=True, default='sta.jpg')
     bio = models.TextField(null=True)
     user_link = models.CharField(max_length=255, null=True)
     facebook_link = models.CharField(max_length=255, null=True, default='')

@@ -47,6 +47,15 @@ def register(request):
                 user.save()
                 profile = Profile.objects.create(profile_user=user)
                 profile.save()
+                # Create secret link
+                
+                complete_url = f"{request.scheme}://{request.get_host()}/send_message/"+str(user)
+    
+                user_profile = Profile.objects.get(profile_user=user)
+                user_link = user_profile.user_link 
+    
+                user_profile.user_link = complete_url
+                user_profile.save()  
                 send_mail(
 <<<<<<< HEAD
                     subject="Welcome to WhisperZone!",  # Add the subject
@@ -103,6 +112,8 @@ def view_messages(request):
 
 def send_message(request, pk):
     if Users.objects.filter(OwnerUsername=pk).exists():
+        user = User.objects.get(username=pk)
+        user_profile = Profile.objects.get(profile_user=user)
         if request.method == 'POST':
             message = request.POST['message']
             OwnerUsername = pk
@@ -115,21 +126,16 @@ def send_message(request, pk):
             messages.info(request,'Message sent successfully!')
             return redirect('/send_message/' + pk)
         else:
-            return render(request, 'send_message.html')
+            return render(request, 'send_message.html', {'user_profile':user_profile})
     else:
         return HttpResponse('Link not found. Check the link and try again.')
 
 @login_required(login_url='login')
 def view_secret_link(request,pk):
     user = User.objects.get(username=pk)
-    complete_url = f"{request.scheme}://{request.get_host()}/send_message/"+pk
-    
-    profile = Profile.objects.get(profile_user=user)
-    user_link = profile.user_link 
-    if user_link == None:
-        profile.user_link = complete_url
-        profile.save()  
-    return render(request, 'view_secret_link.html', {'user_link':user_link})
+    user_profile = Profile.objects.get(profile_user=user)
+ 
+    return render(request, 'view_secret_link.html', {'user_profile':user_profile})
 
 @login_required(login_url='login')
 def delete(request,pk):
