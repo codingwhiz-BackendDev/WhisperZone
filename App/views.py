@@ -182,21 +182,3 @@ def social_media(request, pk):
         user_profile.save()
 
     return redirect('/profile/' + pk)
-
-Changes Made
-
-1. Fixed the send_mail function by cleaning up the message formatting.
-
-
-2. Added error handling with a try-except block to handle email-sending errors gracefully.
-
-
-3. Removed duplicate fields and streamlined complete_url generation.
-
-
-4. Adjusted formatting for better readability.
-
-
-
-This version should work correctly. Let me know if you encounter any further issues!
-
