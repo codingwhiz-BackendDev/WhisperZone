@@ -11,6 +11,11 @@
 
 <body>
     <div class="container">
+        {% for message in messages %}
+        <div class="alert warning">
+            <p>{{message}}</p>
+        </div>
+        {% endfor %}
         <!-- Logo/Brand Section -->
         <div class="logo">
             <h1>WhisperZone</h1>

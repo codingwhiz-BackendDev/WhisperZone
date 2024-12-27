@@ -1,0 +1,114 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to bottom, #141E30, #243B55);
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    color: #FFC107;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+}
+
+.logo h1 {
+    font-size: 2.5rem;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.welcome-text h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.welcome-text p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: #555555;
+}
+
+.form-container {
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-group label {
+    font-size: 0.9rem;
+    color: #555555;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #333333;
+}
+
+.btn-primary {
+    background: #FFC107;
+    color: black;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.btn-primary:hover {
+    background: #FFC107;
+    color: #141E30;
+}
+
+.alt-option {
+    margin-top: 20px;
+}
+
+.alt-option a {
+    color: #3b5998;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.alt-option a:hover {
+    text-decoration: underline;
+}
+
+button a {
+    text-decoration: none;
+    color: black;
+}
+
+.alert {
+    padding: 20px;
+    background-color: #f44336;
+    color: white;
+    opacity: 1;
+    transition: opacity 0.6s;
+    margin-bottom: 15px;
+}
+
+.alert.warning {
+    background-color: #ff9800;
+}
