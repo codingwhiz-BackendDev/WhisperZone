@@ -78,6 +78,10 @@ body {
     color: #dcdcdc;
 }
 
+.hero-content p a {
+    color: #FFD700;
+}
+
 .cta-buttons {
     display: flex;
     justify-content: center;

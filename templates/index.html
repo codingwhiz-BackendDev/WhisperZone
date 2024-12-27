@@ -14,7 +14,8 @@
     {% if user.is_authenticated %}
     <div class="hero">
         <div class="navbar">
-            <div class="logo">WhisperZone</div>
+            <div class="logo">WhisperZone
+            </div>
 
             <div class="auth-buttons">
                 <a href="logout" class="login-btn">Log Out</a>
@@ -24,13 +25,14 @@
         <div class="hero-content">
             <h1><span>WhisperZone</span></h1>
             <p>Your place for anonymous and honest conversations.</p>
+            <p><a href="/profile/{{user.username}}">View Profile</a></p>
 
             <!--Form to generate Link for Secrete message-->
             <form action="" method="POST">
                 {% csrf_token %}
                 <div class="cta-buttons">
                     <input type="hidden" name="OwnerUsername" value="{{user.username}}">
-                    <button type="submit" class="start-btn">Generate/View secret link</button>
+                    <button type="submit" class="start-btn">View Anonymous link</button>
                     <a href="/view_messages" class="start-btn">View Anonymous Messages</a>
                 </div>
             </form>
