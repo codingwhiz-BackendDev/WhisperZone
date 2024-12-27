@@ -25,15 +25,21 @@
 
         <!-- Welcome Text -->
         <div class="welcome-text">
-            <h2>Send Anonymous Message</h2>
+            <div class="profile-container">
+                <h2>Send Anonymous Message to {{user_profile.profile_user}}</h2>
+                <div class="profile-pic">
+                    <img src="{{ user_profile.profile_pic.url }}" alt="Profile Picture">
+                </div>
+            </div>
         </div>
+
 
         <!-- Registration Form -->
         <form action="" method="POST" class="form-container">
             {% csrf_token %}
 
             <!-- Textarea Field -->
-            <div class="form-group" style="display: flex;"> 
+            <div class="form-group" style="display: flex;">
                 <textarea id="message" name="message" placeholder="Enter your message" required></textarea>
                 <button type="button" id="toggle"><i class="fas fa-dice"></i></button>
             </div>
@@ -49,12 +55,12 @@
 
         suggestions = ['How old are you', 'who is your crush',
             'what\'s your favourite bible verse?', 'You\'re so cool', 'Send funds abeg🤲',
-            'I\'m secretly a ninja', 'I know a secrete about you', 'I\'m secretly a superhero',
-            'Aarghhh, guess who i am', 'Biggest reg flags in a guy?','Biggest reg flags in a lady?',
-            'everything ok?', 'we should talk more', 'wyd tommorow','Guess who i am','favourite movie',
-            'do you have any cute friend for me lmao','how much do you love God?',
+            'I\'m secretly a ninja', 'I know a secret about you', 'I\'m secretly a superhero',
+            'Aarghhh, guess who i am', 'Biggest reg flags in a guy?', 'Biggest reg flags in a lady?',
+            'everything ok?', 'we should talk more', 'wyd tommorow', 'Guess who i am', 'favourite movie',
+            'do you have any cute friend for me lmao', 'how much do you love God?',
             'worst pickup line you\'ve ever heard?', 'Is WhisperZone the best app tho :)',
-            'do you snore?','best thing you\'re greatful to God for',
+            'do you snore?', 'best thing you\'re greatful to God for',
             'the longest time you\'ve gone without showering', 'i love uuu!!'
         ]
 
