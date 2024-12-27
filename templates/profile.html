@@ -1,0 +1,301 @@
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhisperZone Profile</title>
+    <link rel="stylesheet" href="{% static 'profile.css' %}">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+</head>
+
+<body>
+    <div class="profile-container">
+        <!-- ---------------- -----------If User is authenticated ----------------------------- ---->
+        <!-- ---------------- ----------- Enable all input tags -- ----------------------------- ---->
+        {% if user.is_authenticated %}
+
+        <!-- ---------------- -------Check if the logged in user is the user viewin---------------------- ---->
+        {% if request.user == user %}
+        <!-- Profile Header -->
+        <header>
+            {% if user_profile %}
+
+
+
+            <div class="profile-pic">
+                {% if user_profile.profile_pic.url %}
+                <img src="{{ user_profile.profile_pic.url }}" alt="Profile Picture">
+                {% else %}
+                <img src="{% static 'sta.jpg' %}" alt="Default Profile Picture">
+                {% endif %}
+            </div>
+            <form method="POST" enctype="multipart/form-data" class="profile-upload-form">
+                {% csrf_token %}
+                <input type="file" name="profile_pic" accept="image/*" id="profile-pic-upload">
+
+                <div class="profile-info">
+                    <h1>{{ user.username }}</h1>
+                    <textarea class="bio-textarea" placeholder="Write something about yourself..."
+                        name="bio">{{ user_profile.bio|default:"" }}</textarea>
+
+                    <button type="submit" class="edit-bio-btn">Update Profile</button>
+                </div>
+            </form>
+            {% endif %}
+        </header>
+
+        <!-- User Details Section -->
+        <section class="details">
+            <div class="unique-link">
+                <h3>Your Anonymous Link</h3>
+                <input type="hidden" id="username" value="{{user.username}}">
+                <input type="text" value="{{ user_profile.user_link}}" id="unique-link">
+                <button class="edit-bio-btn" onclick="copyLink()">Copy Link</button>
+            </div>
+            <div class="qr-code">
+                <h3>QR Code</h3>
+                <img src="" id="qrImage" alt="QR Code">
+                <button class="edit-bio-btn" onclick="generateQr()">Generate Image</button>
+                <button class="edit-bio-btn" onclick="downloadQr()">Download Image</button>
+            </div>
+
+            <div class="statistics">
+                <h3>Statistics</h3>
+                <ul>
+                    <li>Messages Received: {{ anonymous_messages_length }}</li>
+                    <li>Likes: {{ user.likes }}</li>
+                    <li>Shares: {{ user.shares }}</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="social-media-links">
+            <h2>Social Media Links</h2>
+            <form action="/social_media/{{user_profile.profile_user}}" method="POST">
+                {% csrf_token %}
+                <div class="social-inputs">
+                    <label for="facebook"><i class="fab fa-facebook"></i> Facebook</label>
+                    <input type="url" name="facebook" placeholder="https://facebook.com/yourprofile"
+                        value="{{ user_profile.facebook_link }}">
+
+                    <label for="twitter"><i class="fab fa-twitter"></i> Twitter</label>
+                    <input type="url" name="twitter" placeholder="https://twitter.com/yourprofile"
+                        value="{{ user_profile.twitter_link }}">
+
+                    <label for="instagram"><i class="fab fa-instagram"></i> Instagram</label>
+                    <input type="url" name="instagram" placeholder="https://instagram.com/yourprofile"
+                        value="{{ user_profile.instagram_link }}">
+                </div>
+                <button type="submit" class="save-links-btn">Save Links</button>
+            </form>
+        </section>
+
+        <!-- Recent Messages Section -->
+        <section class="recent-messages">
+            <h2>Recent Messages</h2>
+            <ul>
+                {% for message in anonymous_messages reversed %}
+                <li>{{ message.message|truncatewords:10 }} - <small>{{ message.time|naturaltime }}</small></li>
+                {% empty %}
+                <li>No messages received yet.</li>
+                {% endfor %}
+            </ul>
+        </section>
+        {% else %}
+        <!-- ---------------- -------End of if the logged in user is the user viewind---------------------- ---->
+
+        <!-- Profile Header -->
+        <header>
+            {% if user_profile %}
+
+
+
+            <div class="profile-pic">
+                {% if user_profile.profile_pic.url %}
+                <img src="{{ user_profile.profile_pic.url }}" alt="Profile Picture">
+                {% else %}
+                <img src="{% static 'sta.jpg' %}" alt="Default Profile Picture">
+                {% endif %}
+            </div>
+            <form method="POST" enctype="multipart/form-data" class="profile-upload-form">
+                {% csrf_token %}
+
+                <div class="profile-info">
+                    <h1>{{ user.username }}</h1>
+                    <textarea class="bio-textarea" readonly placeholder="Write something about yourself..."
+                        name="bio">{{ user_profile.bio|default:"" }}</textarea>
+                </div>
+            </form>
+            {% endif %}
+        </header>
+
+        <!-- User Details Section -->
+        <section class="details">
+            <div class="unique-link">
+                <h3>Your Anonymous Link</h3>
+                <input type="hidden" id="username" value="{{user.username}}">
+                <input type="text" value="{{ user_profile.user_link }}" id="unique-link">
+                <button class="edit-bio-btn" onclick="copyLink()">Copy Link</button>
+            </div>
+            <div class="qr-code">
+                <h3>QR Code</h3>
+                <img src="" id="qrImage" alt="QR Code">
+                <button class="edit-bio-btn" onclick="generateQr()">Generate Image</button>
+                <button class="edit-bio-btn" onclick="downloadQr()">Download Image</button>
+            </div>
+            <div class="statistics">
+                <h3>Statistics</h3>
+                <ul>
+                    <li>Messages Received: {{ anonymous_messages_length }}</li>
+                    <li>Likes: {{ user.likes }}</li>
+                    <li>Shares: {{ user.shares }}</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="social-media-links">
+            <h2>Social Media Links</h2>
+            <form action="/social_media/{{user_profile.profile_user}}" method="POST">
+                {% csrf_token %}
+                <div class="social-inputs">
+                    <label for="facebook"><i class="fab fa-facebook"></i> Facebook</label>
+                    <input type="url" name="facebook" readonly placeholder="https://facebook.com/yourprofile"
+                        value="{{ user_profile.facebook_link }}">
+
+                    <label for="twitter"><i class="fab fa-twitter"></i> Twitter</label>
+                    <input type="url" name="twitter" readonly placeholder="https://twitter.com/yourprofile"
+                        value="{{ user_profile.twitter_link }}">
+
+                    <label for="instagram"><i class="fab fa-instagram"></i> Instagram</label>
+                    <input type="url" name="instagram" readonly placeholder="https://instagram.com/yourprofile"
+                        value="{{ user_profile.instagram_link }}">
+                </div>
+                <button type="submit" class="save-links-btn">Save Links</button>
+            </form>
+        </section>
+
+        <!-- Recent Messages Section -->
+        <section class="recent-messages">
+            <h2>Recent Messages</h2>
+            <ul>
+                {% for message in anonymous_messages reversed %}
+                <li>{{ message.message|truncatewords:10 }} - <small>{{ message.time|naturaltime }}</small></li>
+                {% empty %}
+                <li>No messages received yet.</li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        {% endif %}
+
+
+
+
+
+
+        {% else %}
+
+
+
+
+        <!-- ---------------- -----------If User is not Logged In ----------------------------- ---->
+        <!-- ---------------- ----------- Disable all input tags -- ----------------------------- ---->
+
+
+
+
+        <!-- Profile Header -->
+        <header>
+            {% if user_profile %}
+
+
+
+            <div class="profile-pic">
+                {% if user_profile.profile_pic.url %}
+                <img src="{{ user_profile.profile_pic.url }}" alt="Profile Picture">
+                {% else %}
+                <img src="{% static 'sta.jpg' %}" alt="Default Profile Picture">
+                {% endif %}
+            </div>
+            <form method="POST" enctype="multipart/form-data" class="profile-upload-form">
+                {% csrf_token %}
+
+
+                <div class="profile-info">
+                    <h1>{{ user.username }}</h1>
+                    <textarea readonly class="bio-textarea" placeholder="Write something about yourself..."
+                        name="bio">{{ user_profile.bio|default:"" }}</textarea>
+
+                </div>
+            </form>
+            {% endif %}
+        </header>
+
+        <!-- User Details Section -->
+        <section class="details">
+            <div class="unique-link">
+                <h3>Your Anonymous Link</h3>
+                <input type="hidden" id="username" value="{{user.username}}">
+                <input type="text" value="{{ user_profile.user_link }}" id="unique-link">
+                <button class="edit-bio-btn" onclick="copyLink()">Copy Link</button>
+            </div>
+            <div class="qr-code">
+                <h3>QR Code</h3>
+                <img src="" id="qrImage" alt="QR Code">
+                <button class="edit-bio-btn" onclick="generateQr()">Generate Image</button>
+                <button class="edit-bio-btn" onclick="downloadQr()">Download Image</button>
+            </div>
+            <div class="statistics">
+                <h3>Statistics</h3>
+                <ul>
+                    <li>Messages Received: {{ anonymous_messages_length }}</li>
+                    <li>Likes: {{ user.likes }}</li>
+                    <li>Shares: {{ user.shares }}</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="social-media-links">
+            <h2>Social Media Links</h2>
+            <form action="/social_media/{{user_profile.profile_user}}" method="POST">
+                {% csrf_token %}
+                <div class="social-inputs">
+                    <label for="facebook"><i class="fab fa-faceb readonlyook"></i> Facebook</label>
+                    <input type="url" name="facebook" readonly placeholder="https://facebook.com/yourprofile"
+                        value="{{ user_profile.facebook_link }}">
+
+                    <label for="twitter"><i class="fab fa-twitter"></i> Twitter</label>
+                    <input type="url" name="twitter" readonly placeholder="https://twitter.com/yourprofile"
+                        value="{{ user_profile.twitter_link }}">
+
+                    <label for="instagram"><i class="fab fa-instagram"></i> Instagram</label>
+                    <input type="url" name="instagram" readonly placeholder="https://instagram.com/yourprofile"
+                        value="{{ user_profile.instagram_link }}">
+                </div>
+                <button type="submit" class="save-links-btn">Save Links</button>
+            </form>
+        </section>
+
+        <!-- Recent Messages Section -->
+        <section class="recent-messages">
+            <h2>Recent Messages</h2>
+            <ul>
+                {% for message in anonymous_messages %}
+                <li>{{ message.message|truncatewords:10 }} - <small>{{ message.time|naturaltime }}</small></li>
+                {% empty %}
+                <li>No messages received yet.</li>
+                {% endfor %}
+            </ul>
+        </section>
+        {% endif %}
+    </div>
+
+    <script src="{% static 'script.js' %}">
+    </script>
+</body>
+
+</html>

@@ -4,37 +4,104 @@ body {
     color: #ffffff;
     margin: 0;
     padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
 .container {
+    width: 90%;
     max-width: 800px;
-    margin: 50px auto;
-    color: white;
     padding: 20px;
     border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    background: rgba(20, 30, 48, 0.95);
 }
 
-.header {
+/* Header Styling */
+.logo h1 {
+    font-size: 2.5rem;
+    color: #FFC107;
+    margin-bottom: 10px;
     text-align: center;
-    margin-bottom: 20px;
 }
 
-.header h1 {
-    font-size: 2rem;
-    color: #FFD700;
-}
-
-.header p {
+.logo p {
+    text-align: center;
     font-size: 1rem;
+    color: #e9e9e9;
 }
 
-ul div {
-    text-align: left;
-    color: white;
+/* Message Box Styling */
+.box {
+    margin-bottom: 25px;
+    background: #1E293B;
+    border-radius: 10px;
+    padding: 20px;
+    color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.box h4 {
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
     font-size: 1.2rem;
     margin-bottom: 10px;
-    padding: 20px;
-    background: linear-gradient(to bottom, #141E30, #243B55);
-    border-radius: 10px;
+    color: #FFC107;
+}
+
+.box hr {
+    border: 0.5px solid #ffffff;
+    margin: 10px 0;
+}
+
+.box p {
+    font-size: 1rem;
+    margin: 15px 0;
+    color: #e6e6e6;
+    text-align: justify;
+}
+
+.box h6 {
+    text-align: right;
+    color: #e9be3f;
+    font-size: 0.9rem;
+}
+
+.box h6 a {
+    color: #ffc107;
+    text-decoration: none;
+}
+
+/* No Messages Styling */
+.no-messages {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #ffc107;
+    margin-top: 50px;
+}
+
+.alert.warning {
+    padding: 4px;
+    background-color: #ff9800;
+    color: white;
+    opacity: 1;
+    transition: opacity 0.6s;
+    margin-bottom: 7px;
+}
+
+/* Responsive Design */
+@media (max-width: 767px) {
+    .container {
+        width: 95%;
+    }
+
+    .box {
+        padding: 15px;
+    }
+
+    .logo h1 {
+        font-size: 2rem;
+    }
 }

@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-42cpolio=+_mt=hsei*maieil@=--%#jmnjkikfap*v_0kxi4p
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+<<<<<<< HEAD
 ALLOWED_HOSTS = ['whisperzone.pythonanywhere.com']
+=======
+ALLOWED_HOSTS = []
+>>>>>>> 740c143f9656bf7d61b324e82a651359887e17ad
 
 
 # Application definition
@@ -37,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'App'
 ]
 
@@ -127,6 +132,8 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = (os.path.join( BASE_DIR,'static'),)
 STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

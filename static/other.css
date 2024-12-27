@@ -11,7 +11,7 @@ body {
 
 .container {
     color: #FFC107;
-    padding: 30px;
+    padding: 20px;
     border-radius: 15px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     max-width: 400px;
@@ -71,14 +71,26 @@ textarea {
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: 0.3s ease;
     width: 100%;
     margin-top: 10px;
 }
 
 .btn-primary:hover {
+    border: none;
+    cursor: pointer;
     background: #FFC107;
     color: #141E30;
+}
+
+button[type=button] {
+    cursor: pointer;
+    border-radius: 7px;
+    padding: 12px 20px;
+    color: #141E30;
+    background: #FFC107;
+    border: none;
+    outline: none;
 }
 
 .alt-option {

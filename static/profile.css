@@ -1,0 +1,214 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to bottom, #141E30, #243B55);
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+}
+
+.profile-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.profile-pic {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid #FFC107;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.profile-pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-upload-form {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+#profile-pic-upload {
+    display: block;
+    padding: 10px;
+    border: 2px solid #FFC107;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#profile-pic-upload:hover {
+    background: #FFC107;
+    color: #243B55;
+}
+
+.upload-btn {
+    padding: 10px 15px;
+    font-size: 14px;
+    border: none;
+    background-color: #FFC107;
+    color: #243B55;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.upload-btn:hover {
+    background-color: #FFD54F;
+}
+
+.profile-info {
+    margin-top: 0px;
+}
+
+.profile-info h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: #FFC107;
+}
+
+.bio-textarea {
+    width: 95%;
+    min-height: 80px;
+    margin-top: 10px;
+    padding: 10px;
+    border: 2px solid #FFC107;
+    border-radius: 10px;
+    background: none;
+    color: #ffffff;
+    resize: none;
+    font-size: 1rem;
+}
+
+.edit-bio-btn {
+    margin-top: 10px;
+    padding: 10px 15px;
+    font-size: 0.9rem;
+    border: none;
+    background: #FFC107;
+    color: #243B55;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.edit-bio-btn:hover {
+    background-color: #FFD54F;
+}
+
+.details {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.details div {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 15px;
+    flex: 1;
+    text-align: center;
+}
+
+.details h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #FFC107;
+}
+
+input#unique-link {
+    width: 95%;
+    padding: 10px;
+    border: 2px solid #FFC107;
+    border-radius: 5px;
+    background: none;
+    color: #ffffff;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.social-media-links {
+    margin-top: 20px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.social-media-links h2 {
+    font-size: 1.5rem;
+    color: #FFC107;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.social-inputs {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+
+.social-inputs label {
+    font-size: 1rem;
+    color: #FFC107;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.social-inputs input {
+    width: 95%;
+    padding: 10px;
+    border: 2px solid #FFC107;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    font-size: 1rem;
+    outline: none;
+}
+
+.social-inputs input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.social-inputs input:focus {
+    border-color: #FFD54F;
+}
+
+.save-links-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    background: #FFC107;
+    color: #243B55;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.save-links-btn:hover {
+    background: #FFD54F;
+}

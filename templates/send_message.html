@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Send Message - WhisperZone</title>
     <link rel="stylesheet" href="{% static 'other.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
 
 <body>
@@ -16,7 +18,11 @@
             <p>{{message}}</p>
         </div>
         {% endfor %}
+<<<<<<< HEAD
         <!-- Logo/Brand Section -->
+=======
+
+>>>>>>> 740c143f9656bf7d61b324e82a651359887e17ad
         <div class="logo">
             <h1>WhisperZone</h1>
         </div>
@@ -31,15 +37,40 @@
             {% csrf_token %}
 
             <!-- Textarea Field -->
-            <div class="form-group">
-
+            <div class="form-group" style="display: flex;"> 
                 <textarea id="message" name="message" placeholder="Enter your message" required></textarea>
+                <button type="button" id="toggle"><i class="fas fa-dice"></i></button>
             </div>
 
             <!-- Submit Button -->
             <button type="submit" class="btn-primary">Send Message</button>
         </form>
     </div>
+
+    <script>
+        let message = document.getElementById('message');
+        toggle = document.getElementById('toggle')
+
+        suggestions = ['How old are you', 'who is your crush',
+            'what\'s your favourite bible verse?', 'You\'re so cool', 'Send funds abeg🤲',
+            'I\'m secretly a ninja', 'I know a secrete about you', 'I\'m secretly a superhero',
+            'Aarghhh, guess who i am', 'Biggest reg flags in a guy?','Biggest reg flags in a lady?',
+            'everything ok?', 'we should talk more', 'wyd tommorow','Guess who i am','favourite movie',
+            'do you have any cute friend for me lmao','how much do you love God?',
+            'worst pickup line you\'ve ever heard?', 'Is WhisperZone the best app tho :)',
+            'do you snore?','best thing you\'re greatful to God for',
+            'the longest time you\'ve gone without showering', 'i love uuu!!'
+        ]
+
+        toggle.addEventListener('click', () => {
+
+            random_suggestion = Math.floor(Math.random() * suggestions.length)
+
+            message.value = suggestions[random_suggestion];
+            console.log(message.value)
+        })
+
+    </script>
 </body>
 
 </html>
