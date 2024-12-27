@@ -1,6 +1,3 @@
-Here is your code with the corrected send_mail function in the register view:
-
-Corrected Code
 
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
