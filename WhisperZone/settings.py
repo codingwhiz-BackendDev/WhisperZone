@@ -25,13 +25,10 @@ SECRET_KEY = 'django-insecure-42cpolio=+_mt=hsei*maieil@=--%#jmnjkikfap*v_0kxi4p
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-
-ALLOWED_HOSTS = ['whisperzone.pythonanywhere.com']
+ 
 
 ALLOWED_HOSTS = []
-
-
-
+ 
 # Application definition
 
 INSTALLED_APPS = [
@@ -42,8 +39,20 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-    'App'
+    'App',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
+
+AUTHENTICATION_BACKENDS = [ 
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+SITE_ID = 1
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -51,7 +60,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'oluyemiemma2409@gmail.com'
-EMAIL_HOST_PASSWORD = 'xkkjcfgvwjzyyqzh'
+EMAIL_HOST_PASSWORD = ''
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -61,7 +70,42 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "allauth.account.middleware.AccountMiddleware",
 ]
+
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+
+            'key': '',
+        },
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        },
+    }
+}
+
+
+
+ACCOUNT_AUTHENTICATION_METHOD = 'username'  # Use username instead of email-based login
+ACCOUNT_EMAIL_REQUIRED = False  # No email required for authentication
+ACCOUNT_EMAIL_VERIFICATION = "none"  # Disable email verification
+ACCOUNT_USERNAME_REQUIRED = True  # Ensure username is required
+ACCOUNT_SIGNUP_REDIRECT_URL = '/'  # Redirect after signup
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'  # Redirect after logout
+LOGIN_REDIRECT_URL = '/'  # Redirect after login
+LOGOUT_REDIRECT_URL = '/'  # Redirect after logout
+SOCIALACCOUNT_QUERY_EMAIL = True
+SOCIALACCOUNT_AUTO_SIGNUP = True
+
+
+ 
+
 
 ROOT_URLCONF = 'WhisperZone.urls'
 
@@ -124,6 +168,8 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+LOGIN_REDIRECT_URL = '/'
 
 
 # Static files (CSS, JavaScript, Images)

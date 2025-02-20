@@ -19,6 +19,50 @@ body {
     background: rgba(20, 30, 48, 0.95);
 }
 
+/* Navbar Styling */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px 30px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    max-width: 1100px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #FFD700;
+    text-shadow: 1px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.auth-buttons {
+    display: flex;
+}
+
+.auth-buttons .cta-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 50px;
+    background: #FFD700;
+    color: #243B55;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.auth-buttons .cta-buttons:hover {
+    background: #FFC107;
+    transform: scale(1.05);
+}
+
 /* Header Styling */
 .logo h1 {
     font-size: 2.5rem;
@@ -74,21 +118,49 @@ body {
     text-decoration: none;
 }
 
-/* No Messages Styling */
-.no-messages {
-    text-align: center;
-    font-size: 1.2rem;
-    color: #ffc107;
-    margin-top: 50px;
+.box a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    text-align: right;
 }
 
-.alert.warning {
-    padding: 4px;
-    background-color: #ff9800;
-    color: white;
-    opacity: 1;
-    transition: opacity 0.6s;
-    margin-bottom: 7px;
+.like-button {
+    color: #ffc107;
+}
+
+
+.box span {
+    cursor: pointer;
+}
+
+.box button {
+    background: #FFC107;
+    color: black;
+    padding: 5px 9px;
+    border: none;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+button[type=submit] {
+    background: #FFC107;
+    color: black;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.btn-primary:hover {
+    border: none;
+    cursor: pointer;
+    background: #FFC107;
+    color: #141E30;
 }
 
 /* Responsive Design */

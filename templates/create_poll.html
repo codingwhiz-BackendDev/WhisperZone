@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Poll - WhisperZone</title>
+    <link rel="stylesheet" href="{% static 'poll.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'font-awesome3/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'notification.css' %}">
+</head>
+
+<body>
+    <div class="poll-hero">
+        {% for message in messages %}
+        <div id="notification" class="notification">
+            <span class="icon"><i class="fas fa-check-circle"></i></span>
+            <span class="message">{{message}}</span>
+            <button class="close-btn">&times;</button>
+        </div>
+
+        {% endfor %}
+        <div class="navbar">
+            <div class="logo">WhisperZone</div>
+            <div class="auth-buttons">
+                <a href="/" class="cta-buttons">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="poll-content">
+            <h1>Create a Poll</h1>
+            <p>Engage your community by creating a poll and gathering opinions!</p>
+            <form action="" method="POST"> 
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="poll-question">Poll Question</label>
+                    <input type="text" id="poll-question" name="question" placeholder="Enter your question" required>
+                </div>
+
+                <div class="flex-button">
+                    <div class="form-group">
+                        <label>Options</label>
+                        <div id="options-container">
+                            <input type="text" name="options[]" placeholder="Option 1" required>
+                            <input type="text" name="options[]" placeholder="Option 2" required>
+                        </div>
+                        <button type="button" id="add-option-btn" class="dynamic-btn"><i class="fas fa-plus-circle"></i>
+                            Add
+                            Option</button>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn">Create Poll</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+<script src="{% static 'notification.js'%}"></script>
+<script src="{% static 'poll.js' %}"></script>
+
+</html>

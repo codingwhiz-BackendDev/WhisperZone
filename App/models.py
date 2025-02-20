@@ -16,9 +16,13 @@ class AnonymousMessage(models.Model):
     OwnerUsername = models.CharField(max_length=255, null=True)
     message = models.CharField(max_length=255, null=True)
     time = models.DateTimeField(auto_now_add=True, null=True)
+    make_private = models.BooleanField(default=False, null=True)
+    no_of_likes = models.IntegerField(default=0)
     
     def __str__(self):
         return self.OwnerUsername
+
+ 
     
 class  Profile(models.Model):
     profile_user = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
@@ -31,3 +35,35 @@ class  Profile(models.Model):
     
     def __str__(self):
         return str(self.profile_user)
+    
+class Poll(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    question = models.CharField(max_length=255, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.question
+
+
+class Option(models.Model):
+    poll = models.ForeignKey(Poll, related_name='options', on_delete=models.CASCADE)
+    option_text = models.CharField(max_length=255, null=True)
+    votes = models.IntegerField(default=0, null=True)
+
+    def __str__(self):
+        return f"{self.option_text} ({self.votes} votes)"
+    
+
+class VoteRecord(models.Model):
+    ip_address = models.GenericIPAddressField()
+    option = models.ForeignKey(Option, on_delete=models.CASCADE)
+    
+class MessagesLike(models.Model):
+    ip_address = models.GenericIPAddressField(null=True)
+    message = models.CharField(max_length=255, null=True)
+
+    
+    def __str__(self):
+        return str(self.ip_address)
+    

@@ -5,15 +5,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - WhisperZone</title>
+    <title>Login - WhisperZone</title>
     <link rel="stylesheet" href="{% static 'other.css' %}">
+    <link rel="stylesheet" href="{% static 'notification.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'font-awesome3/css/all.css' %}">
 </head>
 
 <body>
     <div class="container">
         {% for message in messages %}
-        <div class="alert warning">
-            <p>{{message}}</p>
+        <div id="notification" class="notification">
+            <span class="icon"><i class="fas fa-check-circle"></i></span>
+            <span class="message">{{message}}</span>
+            <button class="close-btn">&times;</button>
         </div>
         {% endfor %}
         <!-- Logo/Brand Section -->
@@ -45,11 +50,25 @@
             <button type="submit" class="btn-primary">Login</button>
         </form>
 
+        <div class="google">
+            <p>Or login with</p>
+            <div class="googleBody">
+                <a href="http://127.0.0.1:8000/accounts/google/login/">
+                    <i class="fab fa-google"></i>
+                    <span>Sign in with Google</span>
+                </a>
+
+            </div>
+        </div>
+
+
         <!-- Already Have an Account? -->
         <div class="alt-option">
-            <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+            <p>Don't have an account? <a href="register">Register</a></p>
+            <p>Forgot password? <a href="forgot_password">Reset here</a></p>
         </div>
     </div>
+    <script src="{% static 'notification.js'%}"></script>
 </body>
 
 </html>

@@ -1,0 +1,224 @@
+/* General Reset and Fonts */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Navbar Styling */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px 30px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    width: 100%;
+    max-width: 1100px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #FFD700;
+    text-shadow: 1px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.auth-buttons {
+    display: flex;
+}
+
+.auth-buttons button {
+    cursor: pointer;
+}
+
+.auth-buttons .cta-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 50px;
+    background: #FFD700;
+    color: #243B55;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.auth-buttons .cta-buttons:hover {
+    background: #FFC107;
+    transform: scale(1.05);
+}
+
+/* Hero Section */
+.poll-hero {
+    background: linear-gradient(to bottom, #141E30, #243B55);
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.poll-content {
+    background: rgba(255, 255, 255, 0.15);
+    color: #FFD700;
+    border-radius: 15px;
+    padding: 1rem;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    margin-top: 20px;
+    backdrop-filter: blur(8px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.poll-content a {
+    text-decoration: none;
+    color: #FFD700;
+}
+
+.poll-content h1 {
+    color: #FFD700;
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+}
+
+.poll-content h3 {
+    font-size: 1.2rem;
+}
+
+.poll-content p {
+    color: #ffffff;
+    font-size: 0.7rem;
+    margin-top: 1rem;
+    line-height: 1.6;
+}
+
+/* Form Styling */
+.poll-content .form-group {
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.poll-content label {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #FFD700;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.poll-content input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #243B55;
+    background: rgba(255, 255, 255, 0.8);
+    margin-top: 5px;
+    margin-bottom: 10px;
+    transition: border-color 0.3s ease;
+}
+
+.poll-content input:focus {
+    border-color: #FFD700;
+    outline: none;
+}
+
+hr {
+    margin-top: 1rem;
+}
+
+/* Buttons */
+.poll-content .btn {
+    background: #FFD700;
+    color: #141E30;
+    font-weight: bold;
+    padding: 14px 25px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.poll-content .btn:hover {
+    background: #FFC107;
+    transform: scale(1.05);
+}
+
+.flex-time-delete {
+    display: flex;
+    justify-content: space-between;
+}
+
+.dynamic-btn {
+    background: #4CAF50;
+    color: #ffffff;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.dynamic-btn:hover {
+    background: #45A049;
+    transform: scale(1.05);
+}
+
+.poll-option {
+    margin-bottom: 15px;
+}
+
+.progress-bar {
+    width: 100%;
+    background-color: #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    height: 25px;
+    margin: 10px 0;
+}
+
+.progress {
+    height: 100%;
+    background-color: #4CAF50;
+    /* Green color */
+    text-align: center;
+    line-height: 25px;
+    color: white;
+    font-weight: bold;
+    transition: width 0.5s ease-in-out;
+}
+
+/* Animations */
+.poll-content .form-group input {
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

@@ -27,13 +27,6 @@ body {
     margin-bottom: 20px;
 }
 
-.welcome-text {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-}
-
 .profile-container {
     display: flex;
     align-items: center;
@@ -43,6 +36,10 @@ body {
 .welcome-text h2 {
     font-size: 1.8rem;
     margin-bottom: 0;
+}
+
+h6 a {
+    color: #FFC107;
 }
 
 .profile-pic {
@@ -143,15 +140,43 @@ button a {
     color: black;
 }
 
-.alert {
-    padding: 20px;
-    background-color: #f44336;
-    color: white;
-    opacity: 1;
-    transition: opacity 0.6s;
-    margin-bottom: 15px;
+
+.google {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: 1rem;
+    color: #ffffff;
 }
 
-.alert.warning {
-    background-color: #ff9800;
+.googleBody a {
+    text-decoration: none;
+    color: #141E30;
+}
+
+.googleBody {
+    background-color: #ffffff;
+    width: 93%;
+    padding: 12px;
+    color: #141E30;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.googleBody:hover {
+    background-color: #f5f5f5;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.googleBody i {
+    font-size: 1.2rem;
+    color: #DB4437;
+    /* Google's red */
 }

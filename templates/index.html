@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WhisperZone</title>
     <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'font-awesome3/css/all.css' %}">
 </head>
 
 <body>
@@ -14,7 +16,7 @@
     {% if user.is_authenticated %}
     <div class="hero">
         <div class="navbar">
-            <div class="logo">WhisperZone
+            <div class="logo">Welcome <span>{{user.username}}</span>
             </div>
 
             <div class="auth-buttons">
@@ -25,15 +27,29 @@
         <div class="hero-content">
             <h1><span>WhisperZone</span></h1>
             <p>Your place for anonymous and honest conversations.</p>
-            <p><a href="/profile/{{user.username}}">View Profile</a></p>
+            <div class="cta-buttons">
+                <h2>
+                    <a href="/profile/{{user.username}}">
+                        <i class="fas fa-user"></i>
+                    </a>
+                </h2>
+                <h2>
+                    <a href="create_poll">
+                        <i class="fas fa-poll"></i>
+                    </a>
+                </h2>
+            </div>
 
             <!--Form to generate Link for Secrete message-->
             <form action="" method="POST">
                 {% csrf_token %}
                 <div class="cta-buttons">
                     <input type="hidden" name="OwnerUsername" value="{{user.username}}">
-                    <button type="submit" class="start-btn">View Anonymous link</button>
-                    <a href="/view_messages" class="start-btn">View Anonymous Messages</a>
+                    <button type="submit" class="start-btn"><i class="fas fa-link"></i></button>
+                    <a href="/view_messages" class="start-btn"><i class="far fa-message"></i></a>
+                    <a href="/poll/{{user.username}}" class="start-btn">
+                        <i class="fas fa-chart-bar"></i> <i class="fas fa-eye"></i>
+                    </a>
                 </div>
             </form>
         </div>

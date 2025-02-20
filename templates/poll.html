@@ -1,0 +1,54 @@
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ poll.question }} - WhisperZone</title>
+    <link rel="stylesheet" href="{% static 'poll.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'font-awesome3/css/all.css' %}">
+</head>
+
+<body>
+    <div class="poll-hero">
+        <div class="navbar">
+            <div class="logo">
+                My Polls
+            </div>
+            <div class="auth-buttons">
+                <button id="copyPollUrl" onclick="copyPollUrl()" class="cta-buttons">
+                    <i class="fas fa-copy"></i>
+                </button>
+                <a href="/" class="cta-buttons">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            </div>
+        </div>
+
+
+        {% for poll in poll reversed %}
+        <div class="poll-content">
+            <a href="{% url 'view_poll' pk=poll question=poll.question %}">
+                <h3>{{ poll.question }}</h3>
+                <div class="flex-time-delete">
+                    <p>Created {{poll.created_at|naturaltime}}</p>
+
+                    {% if user.username == pk %}
+                    <h6><a href="/delete_poll/{{poll.id}}">Delete</a></h6>
+                    {% endif %}
+
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+
+
+    </div>
+</body>
+
+<script src="{% static 'poll.js' %}"></script>
+
+</html>

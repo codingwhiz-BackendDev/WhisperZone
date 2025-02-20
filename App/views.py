@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
-from .models import AnonymousMessage, Users, Profile
+from .models import AnonymousMessage, Users, Profile,Option,Poll,VoteRecord,MessagesLike
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.core.mail import send_mail
 from django.conf import settings
+from ipware import get_client_ip
 
 # Create your views here.
 
@@ -130,13 +131,17 @@ def view_secret_link(request, pk):
 
     return render(request, 'view_secret_link.html', {'user_profile': user_profile})
 
+# Delete message
 @login_required(login_url='login')
 def delete(request, pk):
     message = AnonymousMessage.objects.get(id=pk)
-    message.delete()
-    messages.info(request, 'Message deleted successfully!')
 
+    message.delete() 
+    messages.info(request,'Message deleted successfully!') 
+    
     return redirect('/view_messages')
+ 
+# Users profile
 
 def profile(request, pk):
     user = User.objects.get(username=pk)
@@ -145,6 +150,7 @@ def profile(request, pk):
     anonymous_messages_length = len(anonymous_messages)
     if request.method == 'POST':
         if request.FILES.get('profile_pic') is None:
+
             bio = request.POST['bio']
             profile_pic = user_profile.profile_pic
 
@@ -158,15 +164,18 @@ def profile(request, pk):
             user_profile.bio = bio
             user_profile.profile_pic = profile_pic
             user_profile.save()
-        return redirect('/profile/' + pk)
+
+            return redirect('/profile/'+pk)     
+              
 
     return render(request, 'profile.html', {
         'user_profile': user_profile,
         'user': user,
         'anonymous_messages_length': anonymous_messages_length,
         'anonymous_messages': anonymous_messages
-    })
+    }) 
 
+# Crete social handles
 @login_required(login_url='login')
 def social_media(request, pk):
     user = User.objects.get(username=pk)
@@ -181,4 +190,149 @@ def social_media(request, pk):
         user_profile.twitter_link = twitter
         user_profile.save()
 
-    return redirect('/profile/' + pk)
+        return redirect('/profile/'+pk)
+
+# User can make his messages private
+@login_required(login_url='login')
+def make_message_private(request):
+    if request.method == 'POST':
+        user = request.POST['user']
+        message_id = request.POST['message_id']
+        checkbox = request.POST.get('checkbox')
+        
+        message = AnonymousMessage.objects.get(OwnerUsername=user, id=message_id)
+        print(message.message)
+        if checkbox == 'yes':
+            message.make_private = True
+            message.save()
+        else:
+            message.make_private = False
+            message.save() 
+        return redirect('view_messages')
+
+# A view where people seee users public messages
+def public_messages(request, pk):
+    messages = AnonymousMessage.objects.filter(OwnerUsername=pk, make_private=False)
+    ip, is_routable = get_client_ip(request)
+
+    # Convert liked message IDs to a list of integers
+    liked_messages = list(MessagesLike.objects.filter(ip_address=ip).values_list('message', flat=True))
+    liked_messages = [int(msg_id) for msg_id in liked_messages]  
+
+    return render(request, 'public_messages.html', {
+        'messages': messages,
+        'pk': pk,
+        'liked_messages': liked_messages  # Now contains integer IDs
+    })
+
+
+
+@login_required(login_url='login')
+def create_poll(request):      
+    if request.method == 'POST':
+        user = request.user
+        question = request.POST['question']
+        options = request.POST.getlist('options[]')  # Get the list of options
+
+        if question and options: 
+            poll = Poll.objects.create(question=question, user=user)
+ 
+            for option_text in options:
+                option_text = option_text.strip()
+                Option.objects.create(poll=poll, option_text=option_text)
+
+            messages.success(request, 'Poll created successfully!')
+            return redirect('poll')
+            
+    return render(request, 'create_poll.html')
+ 
+def poll(request,pk):
+    username = User.objects.get(username=pk)
+    poll = Poll.objects.filter(user=username) 
+    pk=pk  
+    return render(request, 'poll.html', {'poll': poll,'pk':pk})
+
+def delete_poll(request,pk):
+    poll = Poll.objects.get(id=pk)
+    poll.delete()
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
+def view_poll(request, pk, question=None):     
+    poll = Poll.objects.get(question=question)
+    options = Option.objects.filter(poll=poll)
+
+    # Calculate total votes for all options
+    total_votes = sum(option.votes for option in options)
+
+    # Calculate percentage for each option
+    for option in options:
+        option.percentage = (option.votes / total_votes * 100) if total_votes > 0 else 0
+
+    return render(request, 'view_poll.html', {
+        'options': options,
+        'total_votes': total_votes
+    })
+
+def vote(request,pk): 
+    # Get the Ip address
+    ip, is_routable = get_client_ip(request) 
+    print(ip)
+    if ip is None:
+        ip = "Unable to determine IP"
+        
+    option = Option.objects.get(id=pk)
+    poll = option.poll
+    
+    # Check if the user has already voted in this poll (any option)
+    previous_vote = VoteRecord.objects.filter(ip_address=ip, option__poll=poll).first()
+    
+    #Check if the ip address of the device already has a record
+    # If it does delete it & minus the votes count   
+   
+    if previous_vote:
+        if previous_vote.option == option: 
+            previous_vote.option.votes -= 1
+            previous_vote.option.save()
+            previous_vote.delete()
+            messages.info(request, "Your vote has been removed.")
+        else: 
+            previous_vote.option.votes -= 1
+            previous_vote.option.save()
+            previous_vote.delete()
+ 
+            VoteRecord.objects.create(ip_address=ip, option=option)
+            option.votes += 1
+            option.save()
+            messages.success(request, "Your vote has been updated.")
+    else:
+        # If this is the user's first vote in the poll
+        VoteRecord.objects.create(ip_address=ip, option=option)
+        option.votes += 1
+        option.save()
+        messages.success(request, "Your vote has been recorded.")
+
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
+def like_message(request,pk):
+    message = AnonymousMessage.objects.get(id=pk) 
+    actual_message = message.message
+    
+    ip, is_routable = get_client_ip(request)
+    if ip is None:
+        ip  = "Unable to determine IP"
+        
+    
+    my_like = MessagesLike.objects.filter(ip_address=ip, message=message.id)
+    
+    if my_like:
+        my_like.delete() 
+        message.no_of_likes -=1 
+        message.save()
+    else:
+        my_like = MessagesLike.objects.create(ip_address=ip, message=message.id)
+        my_like.save() 
+        message.no_of_likes +=1 
+        message.save()
+        
+    
+    return redirect(request.META.get('HTTP_REFERER', '/')) 

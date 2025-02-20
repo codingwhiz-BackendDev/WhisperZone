@@ -59,8 +59,11 @@
             <div class="qr-code">
                 <h3>QR Code</h3>
                 <img src="" id="qrImage" alt="QR Code">
-                <button class="edit-bio-btn" onclick="generateQr()">Generate Image</button>
-                <button class="edit-bio-btn" onclick="downloadQr()">Download Image</button>
+
+                <div class="buttons">
+                    <button class="edit-bio-btn" onclick="generateQr()">Generate Image</button>
+                    <button class="edit-bio-btn" onclick="downloadQr()">Download Image</button>
+                </div>
             </div>
 
             <div class="statistics">
@@ -106,7 +109,7 @@
             </ul>
         </section>
         {% else %}
-        <!-- ---------------- -------End of if the logged in user is the user viewind---------------------- ---->
+        <!-- ---------------- -------End of if the logged in user is the user viewing---------------------- ---->
 
         <!-- Profile Header -->
         <header>
@@ -126,7 +129,7 @@
 
                 <div class="profile-info">
                     <h1>{{ user.username }}</h1>
-                    <textarea class="bio-textarea" readonly placeholder="Write something about yourself..."
+                    <textarea class="bio-textarea" readonly placeholder="No bio..."
                         name="bio">{{ user_profile.bio|default:"" }}</textarea>
                 </div>
             </form>
@@ -174,7 +177,6 @@
                     <input type="url" name="instagram" readonly placeholder="https://instagram.com/yourprofile"
                         value="{{ user_profile.instagram_link }}">
                 </div>
-                <button type="submit" class="save-links-btn">Save Links</button>
             </form>
         </section>
 
@@ -227,7 +229,7 @@
 
                 <div class="profile-info">
                     <h1>{{ user.username }}</h1>
-                    <textarea readonly class="bio-textarea" placeholder="Write something about yourself..."
+                    <textarea readonly class="bio-textarea" placeholder="No bio..."
                         name="bio">{{ user_profile.bio|default:"" }}</textarea>
 
                 </div>
@@ -276,7 +278,6 @@
                     <input type="url" name="instagram" readonly placeholder="https://instagram.com/yourprofile"
                         value="{{ user_profile.instagram_link }}">
                 </div>
-                <button type="submit" class="save-links-btn">Save Links</button>
             </form>
         </section>
 

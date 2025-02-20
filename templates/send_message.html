@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Send Message - WhisperZone</title>
     <link rel="stylesheet" href="{% static 'other.css' %}">
+    <link rel="stylesheet" href="{% static 'notification.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 </head>
@@ -14,8 +15,10 @@
 <body>
     <div class="container">
         {% for message in messages %}
-        <div class="alert warning">
-            <p>{{message}}</p>
+        <div id="notification" class="notification">
+            <span class="icon"><i class="fas fa-check-circle"></i></span>
+            <span class="message">{{message}}</span>
+            <button class="close-btn">&times;</button>
         </div>
         {% endfor %}
 
@@ -31,7 +34,10 @@
             <div class="profile-container">
                 <h2>Send Anonymous Message to {{user_profile.profile_user}}</h2>
                 <div class="profile-pic">
-                    <img src="{{ user_profile.profile_pic.url }}" alt="Profile Picture">
+                    <a href="/profile/{{user_profile.profile_user}}">
+                        <img src="{{ user_profile.profile_pic.url }}" alt="Profile Picture">
+                    </a>
+
                 </div>
             </div>
         </div>
@@ -46,6 +52,11 @@
                 <textarea id="message" name="message" placeholder="Enter your message" required></textarea>
                 <button type="button" id="toggle"><i class="fas fa-dice"></i></button>
             </div>
+            <h6>
+                <a href="/public_messages/{{user_profile.profile_user}}">
+                    view others messages to {{user_profile.profile_user}}
+                </a>
+            </h6>
 
             <!-- Submit Button -->
             <button type="submit" class="btn-primary">Send Message</button>

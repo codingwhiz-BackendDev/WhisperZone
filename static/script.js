@@ -53,3 +53,5 @@ function downloadQr() {
             console.error('Error fetching QR code:', error);
         });
 }
+
+

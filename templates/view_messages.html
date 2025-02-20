@@ -7,20 +7,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anonymous Messages - WhisperZone</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'font-awesome3/css/all.css' %}">
     <link rel="stylesheet" href="{% static 'message.css' %}">
+    <link rel="stylesheet" href="{% static 'notification.css' %}">
 </head>
 
 <body>
     <div class="container">
         {% for message in messages %}
-        <div class="alert warning">
-            <p>{{message}}</p>
+        <div id="notification" class="notification">
+            <span class="icon"><i class="fas fa-check-circle"></i></span>
+            <span class="message">{{message}}</span>
+            <button class="close-btn">&times;</button>
         </div>
+
         {% endfor %}
-        <header class="logo">
-            <h1>WhisperZone</h1>
-            <p>Read anonymous messages shared with you!</p>
-        </header>
+        <div class="navbar">
+            <div class="logo">Messages</div>
+            <div class="auth-buttons">
+                <a href="/public_messages/{{request.user}}" class="cta-buttons">
+                    <i class="fas fa-message"></i>
+                </a>
+                <a href="/" class="cta-buttons">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            </div>
+        </div>
 
         <!-- Messages Section -->
         {% if anonymousMessages %}
@@ -30,6 +44,24 @@
             <hr>
             <p>{{ message.message }}</p>
             <h6>{{message.time|naturaltime}}</h6>
+
+            <form action="make_message_private" method="POST">
+                {% csrf_token %}
+                <input type="hidden" id="user" name="user" value="{{request.user}}">
+                <input type="hidden" id="message_id" name="message_id" value="{{message.id}}">
+
+                {% if message.make_private == True %}
+                <h6>Make message public <input type="checkbox" checked value="no" name="checkbox" id="checkbox">
+                    <button type="submit">yes</button>
+                </h6>
+                {% else %}
+                <h6>Make message private <input type="checkbox" value="yes" name="checkbox" id="checkbox">
+                    <button type="submit">yes</button>
+                </h6>
+                {% endif %}
+
+
+            </form>
             <h6><a href="/delete/{{message.id}}">Delete</a></h6>
         </div>
         {% endfor %}
@@ -39,6 +71,14 @@
         </div>
         {% endif %}
     </div>
+    <script src="{% static 'notification.js'%}"></script>
+    <script src="{% static 'assets/js/tippy.all.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'assets/js/uikit.js' %}"></script>
+    <script src="{% static 'assets/js/simplebar.js' %}"></script>
+    <script src="{% static 'assets/js/custom.js' %}"></script>
+    <script src="{% static 'make_private.js' %}">
+    </script>
 </body>
 
 </html>

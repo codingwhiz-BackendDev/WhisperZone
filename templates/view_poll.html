@@ -1,0 +1,65 @@
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ poll.question }} - WhisperZone</title>
+    <link rel="stylesheet" href="{% static 'poll.css' %}">
+    <link rel="stylesheet" href="{% static 'notification.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'font-awesome3/css/all.css' %}">
+</head>
+
+<body>
+    <div class="poll-hero">
+        {% for message in messages %}
+        <div id="notification" class="notification">
+            <span class="icon"><i class="fas fa-check-circle"></i></span>
+            <span class="message">{{message}}</span>
+            <button class="close-btn">&times;</button>
+        </div>
+
+        {% endfor %}
+        <div class="navbar">
+            <div class="logo">
+                My Polls
+            </div>
+            <div class="auth-buttons">
+                <a href="/poll/{{request.user}}" class="cta-buttons">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            </div>
+        </div>
+
+
+<div class="poll-content">
+    {% for option in options %}
+    <div class="poll-option">
+        <h3>{{ option.poll }}</h3>
+        <p>Choice: {{ option.option_text }}</p>
+        <p>Votes: {{ option.votes }}</p>
+
+        <!-- Progress Bar -->
+        <div class="progress-bar">
+            <div class="progress" style="width: {{ option.percentage }}%;">
+                {{ option.percentage|floatformat:2 }}%
+            </div>
+        </div>
+
+        <a href="/vote/{{ option.id }}" class="vote-button">Vote</a>
+        <hr>
+    </div>
+    {% endfor %}
+</div>
+
+
+
+    </div>
+</body>
+
+<script src="{% static 'poll.js' %}"></script>
+
+</html>

@@ -1,0 +1,85 @@
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Public Messages - WhisperZone</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="{% static 'message.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'font-awesome3/css/all.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <header class="logo">
+            <h1>WhisperZone</h1>
+            <p>Read anonymous sent to {{pk}}!
+                <br>
+                Note this were made public by him/her
+            </p>
+        </header>
+
+        <!-- Messages Section -->
+        {% if messages %}
+        {% for message in messages reversed %}
+        <div class="box" id="box">
+            <h4>Anonymous Message</h4>
+            <hr>
+            <p>{{ message.message }}</p>
+            <h6>{{message.time|naturaltime}}</h6>
+            <button id="screenshotBtn"><span class="fas fa-camera"></span></button>
+
+            {% if message.id in liked_messages %}
+            <a href="/like_message/{{message.id}}">
+                <span>{{message.no_of_likes}}</span>
+                <span class="fas fa-heart like-button"></span>
+            </a>
+            {% else %}
+            <a href="/like_message/{{message.id}}">
+                <span>{{message.no_of_likes}}</span>
+                <span class="fas fa-heart"></span>
+            </a>
+            {% endif %}
+
+
+
+
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="no-messages">
+            <p>No messages yet.</p>
+        </div>
+        {% endif %}
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <script>
+        document.querySelectorAll("#screenshotBtn").forEach(button => {
+            button.addEventListener("click", function () {
+                let box = this.closest(".box");
+                html2canvas(box).then(canvas => {
+                    let link = document.createElement("a");
+                    link.href = canvas.toDataURL("image/png");
+                    link.download = "whisperzoneMessage.png";
+                    link.click();
+                });
+            });
+        });
+
+
+    </script>
+    <script src="{% static 'assets/js/tippy.all.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'assets/js/uikit.js' %}"></script>
+    <script src="{% static 'assets/js/simplebar.js' %}"></script>
+    <script src="{% static 'assets/js/custom.js' %}"></script>
+    <script src="{% static 'make_private.js' %}">
+    </script>
+</body>
+
+</html>
